@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Royal Tee | Product Detail</title>
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,400&display=swap" rel="stylesheet">
+    <style>
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-direction: vertical;
+        }
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .brand-title {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+        .tagline {
+            font-size: 1rem;
+            font-style: italic;
+            color: var(--accent);
+            margin-left: 0;
+            margin-top: 0.2rem;
+        }
+        :root {
+            --primary: #102E50;
+            --secondary: #1A3A5C;
+            --accent: #8DD8FF;
+            --background: #F4F6FF;
+        }
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            background: var(--background);
+            font-family: 'Playfair Display', serif;
+            color: var(--primary);
+        }
+        /* Navbar */
+        .navbar {
+            background: var(--primary);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 2rem;
+        }
+        .navbar .brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .navbar .logo-placeholder {
+            width: 48px;
+            height: 48px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-weight: bold;
+        }
+        .navbar .brand-title {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+        .navbar .tagline {
+            font-size: 1rem;
+            font-style: italic;
+            color: var(--accent);
+            margin-left: 1rem;
+        }
+        .navbar nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 2rem;
+            font-size: 1rem;
+            transition: color 0.2s;
+        }
+        .navbar nav a:hover {
+            color: var(--accent);
+        }
+        /* Main Layout */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            display: flex;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+        .product-images {
+            flex: 1 1 400px;
+            min-width: 320px;
+        }
+        .main-image {
+            width: 100%;
+            aspect-ratio: 4/5;
+            object-fit: cover;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(16,46,80,0.08);
+            background: #fff;
+        }
+        .thumbnails {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .thumbnail {
+            width: 64px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            background: #fff;
+            transition: border 0.2s;
+        }
+        .thumbnail.active, .thumbnail:hover {
+            border: 2px solid var(--accent);
+        }
+        .product-details {
+            flex: 1 1 350px;
+            min-width: 320px;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .product-name {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .product-desc {
+            font-size: 1.1rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        .options-row {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .size-select {
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--secondary);
+            font-size: 1rem;
+            background: #fff;
+            color: var(--primary);
+        }
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .quantity-btn {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: var(--accent);
+            color: var(--primary);
+            font-size: 1.2rem;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .quantity-btn:active {
+            background: var(--secondary);
+            color: #fff;
+        }
+        .quantity-input {
+            width: 40px;
+            text-align: center;
+            font-size: 1rem;
+            border: 1px solid var(--secondary);
+            border-radius: 6px;
+            padding: 0.3rem;
+            background: #fff;
+            color: var(--primary);
+        }
+        .add-to-cart {
+            margin-top: 1.5rem;
+            padding: 1rem 2rem;
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+            box-shadow: 0 2px 8px rgba(16,46,80,0.08);
+        }
+        .add-to-cart:hover {
+            background: var(--accent);
+            color: var(--primary);
+        }
+        /* Related Products */
+        .related-section {
+            max-width: 1200px;
+            margin: 3rem auto 2rem auto;
+        }
+        .related-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+        .related-products {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        .related-card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(16,46,80,0.06);
+            padding: 1rem;
+            flex: 1 1 220px;
+            max-width: 240px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: box-shadow 0.2s;
+        }
+        .related-card:hover {
+            box-shadow: 0 4px 24px rgba(16,46,80,0.12);
+        }
+        .related-img {
+            width: 100%;
+            aspect-ratio: 4/5;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+        .related-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        .related-price {
+            color: var(--secondary);
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+                gap: 2rem;
+                padding: 0 1rem;
+            }
+            .related-products {
+                gap: 1rem;
+            }
+        }
+        @media (max-width: 600px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+                padding: 1rem;
+            }
+            .container {
+                padding: 0 0.5rem;
+            }
+            .related-products {
+                flex-direction: column;
+            }
+            .related-card {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="brand">
+            <div class="logo-placeholder" title="Insert your logo here">
+                <!-- Place your golf player logo SVG or image here -->
+                <span>Logo</span>
+            </div>
+            <div class="brand-title">Royal Tee</div>
+        </div>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Product</a>
+            <a href="#">About</a>
+            <a href="#">Cart</a>
+        </nav>
+    </header>
+
+    <!-- Main Product Detail Section -->
+    <main class="container">
+        <!-- Product Images -->
+        <section class="product-images">
+            <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=600&q=80" alt="Product" class="main-image" id="mainImage">
+            <div class="thumbnails">
+                <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=600&q=80" alt="Thumb 1" class="thumbnail active" data-img="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=600&q=80">
+                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80" alt="Thumb 2" class="thumbnail" data-img="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80">
+                <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=600&q=80" alt="Thumb 3" class="thumbnail" data-img="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=600&q=80">
+            </div>
+        </section>
+        <!-- Product Details -->
+        <section class="product-details">
+            <div>
+                <div class="product-name">Classic Polo Shirt</div>
+                <div class="product-desc">
+                    Experience timeless elegance with our Classic Polo Shirt, crafted from premium cotton for a luxurious feel and sophisticated look. Perfect for business meetings or leisure, this piece embodies the Royal Tee spirit.
+                </div>
+                <div class="product-price">$145.00</div>
+            </div>
+            <div class="options-row">
+                <label for="size" style="font-weight:600;">Size:</label>
+                <select id="size" class="size-select">
+                    <option value="S">S</option>
+                    <option value="M" selected>M</option>
+                    <option value="L">L</option>
+                    <option value="XL">XL</option>
+                </select>
+            </div>
+            <div class="options-row">
+                <label for="quantity" style="font-weight:600;">Quantity:</label>
+                <div class="quantity-selector">
+                    <button class="quantity-btn" id="decreaseQty" aria-label="Decrease quantity">-</button>
+                    <input type="number" id="quantity" class="quantity-input" value="1" min="1" max="10">
+                    <button class="quantity-btn" id="increaseQty" aria-label="Increase quantity">+</button>
+                </div>
+            </div>
+            <button class="add-to-cart" id="addToCartBtn">Add to Cart</button>
+        </section>
+    </main>
+
+    <!-- Related Products -->
+    <section class="related-section">
+        <div class="related-title">Related Products</div>
+        <div class="related-products">
+            <div class="related-card">
+                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80" alt="Related 1" class="related-img">
+                <div class="related-name">Heritage Knit Sweater</div>
+                <div class="related-price">$180.00</div>
+            </div>
+            <div class="related-card">
+                <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=400&q=80" alt="Related 2" class="related-img">
+                <div class="related-name">Elite Chino Pants</div>
+                <div class="related-price">$130.00</div>
+            </div>
+            <div class="related-card">
+                <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80" alt="Related 3" class="related-img">
+                <div class="related-name">Royal Crest Cap</div>
+                <div class="related-price">$65.00</div>
+            </div>
+            <div class="related-card">
+                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80" alt="Related 4" class="related-img">
+                <div class="related-name">Timeless Oxford Shirt</div>
+                <div class="related-price">$155.00</div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Thumbnail image switching
+        const mainImage = document.getElementById('mainImage');
+        const thumbnails = document.querySelectorAll('.thumbnail');
+        thumbnails.forEach(thumb => {
+            thumb.addEventListener('click', function() {
+                thumbnails.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                mainImage.src = this.dataset.img;
+            });
+        });
+
+        // Quantity selector
+        const qtyInput = document.getElementById('quantity');
+        document.getElementById('decreaseQty').onclick = () => {
+            let val = parseInt(qtyInput.value, 10);
+            if (val > 1) qtyInput.value = val - 1;
+        };
+        document.getElementById('increaseQty').onclick = () => {
+            let val = parseInt(qtyInput.value, 10);
+            if (val < 10) qtyInput.value = val + 1;
+        };
+
+        // Add to Cart button
+        document.getElementById('addToCartBtn').onclick = () => {
+            const size = document.getElementById('size').value;
+            const qty = qtyInput.value;
+            alert(`Added ${qty} x Classic Polo Shirt (Size: ${size}) to cart!`);
+        };
+    </script>
+</body>
+</html>

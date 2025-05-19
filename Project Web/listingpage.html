@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Royal Tee | Our Products</title>
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,400|Roboto:400,500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #102E50;
+            --primary-light: #1a3d6b;
+            --accent: #8DD8FF;
+            --background: #F4F6FF;
+            --white: #fff;
+            --shadow: 0 2px 8px rgba(16,46,80,0.08);
+        }
+        body {
+            margin: 0;
+            background: var(--background);
+            font-family: 'Roboto', Arial, sans-serif;
+            color: var(--primary);
+            min-height: 100vh;
+        }
+        /* Navbar */
+        .navbar {
+            background: var(--primary);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 2rem;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        .navbar .brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .navbar .logo-placeholder {
+            width: 48px;
+            height: 48px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--primary);
+            font-weight: bold;
+            /* Replace with your golf player logo */
+        }
+        .navbar .brand-info {
+            display: flex;
+            flex-direction: column;
+        }
+        .navbar .brand-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+        .navbar .tagline {
+            font-size: 0.95rem;
+            font-style: italic;
+            color: var(--accent);
+            margin-top: -0.2rem;
+        }
+        .navbar nav {
+            display: flex;
+            gap: 2rem;
+        }
+        .navbar nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .navbar nav a:hover {
+            color: var(--accent);
+        }
+        /* Layout */
+        .container {
+            display: flex;
+            max-width: 1200px;
+            margin: 2rem auto;
+            gap: 2rem;
+            padding: 0 1rem;
+        }
+        /* Sidebar */
+        .sidebar {
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            padding: 2rem 1.5rem;
+            min-width: 220px;
+            max-width: 260px;
+            flex: 1 1 220px;
+            height: fit-content;
+        }
+        .sidebar h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            margin-bottom: 1.2rem;
+            color: var(--primary);
+            border-bottom: 1px solid #e0e6f6;
+            padding-bottom: 0.5rem;
+        }
+        .filter-group {
+            margin-bottom: 1.5rem;
+        }
+        .filter-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        .filter-group select,
+        .filter-group input[type="range"] {
+            width: 100%;
+            padding: 0.4rem;
+            border-radius: 6px;
+            border: 1px solid #dbe6f6;
+            background: #f7faff;
+            margin-bottom: 0.5rem;
+        }
+        .filter-group .range-values {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #5a7ba6;
+        }
+        /* Main Content */
+        .main-content {
+            flex: 4 1 0;
+            display: flex;
+            flex-direction: column;
+        }
+        .page-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.1rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            letter-spacing: 1px;
+        }
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 2rem;
+        }
+        .product-card {
+            background: var(--white);
+            border-radius: 14px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+        .product-card:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 6px 24px rgba(16,46,80,0.13);
+        }
+        .product-image {
+            width: 100%;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+            background: #eaf4ff;
+        }
+        .product-info {
+            padding: 1.2rem 1rem 1rem 1rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .product-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            color: var(--primary);
+        }
+        .product-price {
+            color: var(--primary-light);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+        .product-actions {
+            display: flex;
+            gap: 0.7rem;
+        }
+        .btn {
+            padding: 0.5rem 1.1rem;
+            border-radius: 6px;
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.18s, color 0.18s;
+        }
+        .btn-details {
+            background: var(--background);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+        }
+        .btn-details:hover {
+            background: var(--accent);
+            color: var(--primary);
+            border-color: var(--accent);
+        }
+        .btn-cart {
+            background: var(--primary);
+            color: var(--white);
+        }
+        .btn-cart:hover {
+            background: var(--accent);
+            color: var(--primary);
+        }
+        /* Responsive */
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            .sidebar {
+                max-width: 100%;
+                min-width: 0;
+                width: 100%;
+            }
+        }
+        @media (max-width: 600px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 1rem;
+            }
+            .navbar nav {
+                gap: 1rem;
+                margin-top: 0.5rem;
+            }
+            .container {
+                padding: 0 0.3rem;
+            }
+            .page-title {
+                font-size: 1.3rem;
+            }
+            .product-grid {
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="brand">
+            <div class="logo-placeholder" title="Insert your golf player logo here">
+                <span></span> <!-- Place logo here -->
+            </div>
+            <div class="brand-info">
+                <span class="brand-name">Royal Tee</span>
+            </div>
+        </div>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Products</a>
+            <a href="#">About</a>
+            <a href="#">Cart</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <!-- Sidebar Filters -->
+        <aside class="sidebar">
+            <h3>Filter</h3>
+            <form id="filterForm">
+                <div class="filter-group">
+                    <label for="category">Category</label>
+                    <select id="category" name="category">
+                        <option value="">All</option>
+                        <option value="shirts">Shirts</option>
+                        <option value="pants">Pants</option>
+                        <option value="outerwear">Outerwear</option>
+                        <option value="accessories">Accessories</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="price">Price Range</label>
+                    <input type="range" id="price" name="price" min="50" max="1000" step="10" value="1000">
+                    <div class="range-values">
+                        <span id="minPrice">$50</span>
+                        <span id="maxPrice">$1000</span>
+                    </div>
+                </div>
+                <div class="filter-group">
+                    <label for="size">Size</label>
+                    <select id="size" name="size">
+                        <option value="">All</option>
+                        <option value="S">Small</option>
+                        <option value="M">Medium</option>
+                        <option value="L">Large</option>
+                        <option value="XL">X-Large</option>
+                    </select>
+                </div>
+            </form>
+        </aside>
+
+        <!-- Main Content -->
+        <section class="main-content">
+            <div class="page-title">Our Products</div>
+            <div class="product-grid" id="productGrid">
+                <!-- Product cards will be rendered here by JS -->
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Sample product data
+        const products = [
+            {
+                id: 1,
+                name: "Classic Polo Shirt",
+                category: "shirts",
+                size: ["S", "M", "L", "XL"],
+                price: 180,
+                image: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80"
+            },
+            {
+                id: 2,
+                name: "Heritage Chino Pants",
+                category: "pants",
+                size: ["M", "L", "XL"],
+                price: 220,
+                image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80"
+            },
+            {
+                id: 3,
+                name: "Royal Wool Blazer",
+                category: "outerwear",
+                size: ["M", "L"],
+                price: 650,
+                image: "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=400&q=80"
+            },
+            {
+                id: 4,
+                name: "Elite Silk Tie",
+                category: "accessories",
+                size: [],
+                price: 95,
+                image: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80"
+            },
+            {
+                id: 5,
+                name: "Timeless Oxford Shirt",
+                category: "shirts",
+                size: ["S", "M", "L"],
+                price: 210,
+                image: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80"
+            },
+            {
+                id: 6,
+                name: "Luxury Cashmere Sweater",
+                category: "outerwear",
+                size: ["M", "L", "XL"],
+                price: 480,
+                image: "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=400&q=80"
+            },
+            {
+                id: 7,
+                name: "Prestige Leather Belt",
+                category: "accessories",
+                size: [],
+                price: 130,
+                image: "https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80"
+            },
+            {
+                id: 8,
+                name: "Classic Linen Pants",
+                category: "pants",
+                size: ["S", "M", "L"],
+                price: 250,
+                image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=400&q=80"
+            }
+        ];
+
+        // Render products
+        function renderProducts(filter = {}) {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = '';
+            let filtered = products.filter(p => {
+                // Category filter
+                if (filter.category && p.category !== filter.category) return false;
+                // Price filter
+                if (filter.price && p.price > filter.price) return false;
+                // Size filter
+                if (filter.size && filter.size !== "" && (!p.size.includes(filter.size))) return false;
+                return true;
+            });
+            if (filtered.length === 0) {
+                grid.innerHTML = '<div style="grid-column: 1/-1; text-align:center; color:#888; padding:2rem;">No products found.</div>';
+                return;
+            }
+            filtered.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <img class="product-image" src="${p.image}" alt="${p.name}">
+                    <div class="product-info">
+                        <div>
+                            <div class="product-name">${p.name}</div>
+                            <div class="product-price">$${p.price}</div>
+                        </div>
+                        <div class="product-actions">
+                            <button class="btn btn-details" onclick="viewDetails(${p.id})">View Details</button>
+                            <button class="btn btn-cart" onclick="addToCart(${p.id})">Add to Cart</button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Filter logic
+        document.getElementById('filterForm').addEventListener('input', function() {
+            const category = this.category.value;
+            const price = parseInt(this.price.value, 10);
+            const size = this.size.value;
+            renderProducts({ category, price, size });
+        });
+
+        // Price range display
+        const priceInput = document.getElementById('price');
+        const maxPriceSpan = document.getElementById('maxPrice');
+        priceInput.addEventListener('input', function() {
+            maxPriceSpan.textContent = `$${this.value}`;
+        });
+
+        // Dummy functions for buttons
+        function viewDetails(id) {
+            alert('View details for product ID: ' + id);
+        }
+        function addToCart(id) {
+            alert('Added product ID ' + id + ' to cart!');
+        }
+
+        // Initial render
+        renderProducts();
+
+        // Expose functions to global scope for inline onclick
+        window.viewDetails = viewDetails;
+        window.addToCart = addToCart;
+    </script>
+</body>
+</html>
